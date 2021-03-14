@@ -8,7 +8,59 @@
 
     <style>
         /* Write your CSS code here */
-    
+
+        /**
+         *  Add some relative positioning to the main container element
+         */
+        .main-area {
+            position: relative;
+            margin:5rem;
+            border:1px dotted blue;
+            display: inline-block;
+            padding:1rem;
+        }
+        /**
+         *  Add an ::after pseudo element containing the pop up content 
+         *  This could have also been done by adding some HTML inside the main-area container
+         *  Tooltip related content to be hidden until main-area hover is triggered
+         */
+        .main-area::after {
+            content:"I'm a popup";
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 120%;
+            left: 50%;
+            margin-left: -60px;
+            visibility: hidden;
+        }
+        /**
+         *  This is the CSS to produce the arrow under the tooltip
+         */
+        .main-area::before {
+            visibility: hidden;
+            content: "";
+            position: absolute;
+            bottom: calc(120% + -10px);
+            left: 50%;
+            margin-top:5px;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: black transparent transparent transparent;
+        }
+        /**
+         *  on hover, show the tooltip
+         */
+        .main-area:hover::before,
+        .main-area:hover::after  {
+            visibility: visible;
+        }
     </style>
 
 </head>

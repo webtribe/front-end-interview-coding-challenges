@@ -8,6 +8,94 @@
   <title>Text transition challenge</title>
 </head>
 
+ 	<style>
+ 		html {
+ 			background: #000;
+ 		}
+ 		/**
+ 		 *  The following CSS sets up classes for animating the different lines of the heading 2 content
+ 		 *  I'm using clip-paths to reveal the lines
+ 		 */
+        h2 span {
+            color:#fff;
+            opacity: 0;
+            top: 2rem;
+            transition: all .5s;
+            clip-path: inset(0 0 100% 0);
+            display: block;
+            position: relative;
+        }
+        h2 span.in { 
+            opacity: 1;
+            top: 0;
+            clip-path: inset(0 0 0 0);
+        } 
+        h2 span.out { 
+            opacity: 0;
+            top: -1rem;
+            clip-path: inset(100% 0 0 0);
+        }
+    </style>
+
+    <script type="text/javascript">
+    
+       window.onload = function () {
+
+       	   // some vars
+       	   let time = 500;
+           let increment = 100;
+	           
+           // get the heading element
+           let heading = document.getElementsByTagName("h2")[0];
+           // break it into an array broken into 50 character strings.  I've used 50, but you could use 
+           // a different number
+           let lines = strTruncateWhole(document.getElementsByTagName("h2")[0].innerHTML, 50);
+
+           // set the heading content to an empty string
+           heading.innerHTML = '';
+           
+           // loop through the lines array and set up intervals for each line
+           // this works by adding css classes to each span at different increments
+           // the css takes care of the animation
+           lines.forEach(function(element) {
+	           	let s = document.createElement("span");
+	           	s.innerHTML = element;
+	           	heading.append(s);
+	           	let timerId = setInterval(function() {
+	                s.classList.add("in");
+	            }, time);
+	            let timerId2 = setInterval(function() {
+	                s.classList.add("out");
+	            }, time+2000);
+	            time += increment;
+           }); 
+
+	
+		}
+
+		/* some functions for breaking the Heading 2 content into smaller chunks */
+
+		function strTruncate(string, width) { 
+		    string = string.replace(/[\s\r\n]+/, ' ');
+		    if(string.length >= width) {
+		        return string[width-1] === ' ' ? string.substr(0, width - 1) : string.substr(0, string.substr(0, width).lastIndexOf(' '));
+		    }
+		    return string;
+		}
+
+		function strTruncateWhole(string, width) { 
+		    arr = [];
+		    string = string.replace(/[\s\r\n]+/, ' ');
+		    var b = 0;
+		    while(b < string.length) {
+		        arr.push(strTruncate(string.substring(b), width));
+		        b += arr[arr.length-1].length;
+		    }
+		    return arr;
+		}
+
+    </script>
+
 <body>
 
 

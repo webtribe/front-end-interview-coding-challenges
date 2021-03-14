@@ -8,6 +8,51 @@
 
     <style>
         /* Write your css here */
+        /**
+         * Style the header to separate the logo and menu left and right
+         */
+        header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            text-align: left;
+        }
+        header .logo img {
+            max-height: 5.5rem;
+        }
+        /**
+         * Menu and menu links
+         */
+        header ul {
+            list-style: none;
+        }
+        header li {
+            display: inline-block;
+            margin:.6rem;
+        }
+        /**
+         * Main content using css grid
+         */
+        main {
+            max-width: 80%;
+            margin:0 auto;
+            display: grid;
+            gap:20px;
+            grid-template-columns: 2fr 1fr;
+            grid-template-areas:
+              "content sidebar"
+        }
+        /* set grid areas */
+        article {
+            grid-area: content;
+        }
+        aside {
+            grid-area: sidebar;
+        }
+        /* remove styling for list */
+        .sidebar {
+            list-style: none;
+        }
     </style>
 
 </head>
